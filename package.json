@@ -1,0 +1,49 @@
+{
+  "name": "arjunane-mui",
+  "version": "0.1.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/montserrat": "^5.2.5",
+    "@fontsource/poppins": "^5.2.5",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.17",
+    "@mui/x-charts": "^6.18.4",
+    "@mui/x-date-pickers": "^6.18.5",
+    "@next/font": "^14.0.3",
+    "axios": "^1.6.2",
+    "cookies-next": "^4.0.0",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.3.1",
+    "hls.js": "^1.6.13",
+    "leaflet-geosearch": "^4.0.0",
+    "next": "14.0.2",
+    "next-pwa": "^5.6.0",
+    "next-transpile-modules": "^10.0.1",
+    "notistack": "^3.0.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.20.1",
+    "react-to-print": "^2.14.15",
+    "recharts": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.12",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.2",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,17 @@
+import { NextRouter } from "next/router";
+import { Dispatch, FormEvent } from "react";
+
+export interface I{fileClassName}State {
+  loading?: boolean;
+}
+
+export interface I{fileClassName}View {
+  refs?: {
+    credentialRef: any, 
+    passwordRef: any
+  };
+  router: NextRouter;
+  state: I{fileClassName}State | undefined; 
+  setState: Dispatch<I{fileClassName}State>;
+  doSave: (evt: FormEvent) => Promise<void>;
+}

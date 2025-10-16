@@ -1,0 +1,5 @@
+const cliCore = require("./src/core/cli_core")
+
+const args = process.argv.slice(2);
+
+cliCore.runCommand(process.argv, args)
