@@ -29,6 +29,11 @@ export default function HlsPlayer({
     } else if (Hls.isSupported()) {
       // Browser lain pakai hls.js
       const hls = new Hls({
+        liveSyncDuration: 3,
+        liveMaxLatencyDuration: 5,
+        manifestLoadingTimeOut: 20000,
+        fragLoadingTimeOut: 20000,
+        enableWorker: true,
         maxBufferLength: 10, // biar rendah latency
       });
       hls.loadSource(src);
