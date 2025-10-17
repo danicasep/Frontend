@@ -13,7 +13,7 @@ export const SideBar = () => {
   const HomePage = {
     icon: DashboardTwoToneIcon,
     label: "Dashboard",
-    link: "/account",
+    link: "/",
     child: []
   }
 
