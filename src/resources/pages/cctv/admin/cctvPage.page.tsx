@@ -56,7 +56,7 @@ const CctvPagePage: NextPage = () => {
     const response = await restartAllCctvs(auth?.token);
     if (response.record) {
       enqueueSnackbar('Semua CCTV berhasil direstart.', { variant: 'success' });
-      setState({ openConfirmRestartModal: false });
+      setState({  });
     }
     else {
       if (response.error?.message) {
@@ -64,7 +64,7 @@ const CctvPagePage: NextPage = () => {
       }
     }
 
-    setState({ loading: false });
+    setState({ openConfirmRestartModal: false, loading: false });
   }
 
   const doUpdateStatus = async (id: any) => {
@@ -73,7 +73,7 @@ const CctvPagePage: NextPage = () => {
     const response = await putCctvStatus(id, auth?.token);
     if (response.record) {
       enqueueSnackbar('Status CCTV berhasil diperbarui.', { variant: 'success' });
-      setState({ openConfirmStatusModal: false, cctvs: state?.cctvs?.map(cctv => cctv.id === id ? response.record : cctv) });
+      setState({ cctvs: state?.cctvs?.map(cctv => cctv.id === id ? response.record : cctv) });
     }
     else {
       if (response.error?.message) {
@@ -81,7 +81,7 @@ const CctvPagePage: NextPage = () => {
       }
     }
 
-    setState({ loading: false });
+    setState({ openConfirmStatusModal: false, loading: false });
   }
 
   const doDelete = async (id: any) => {
@@ -90,7 +90,6 @@ const CctvPagePage: NextPage = () => {
     const response = await deleteCctv(id, auth?.token);
 
     if (response.record) {
-      setState({ openConfirmModal: false });
       enqueueSnackbar('CCTV berhasil dihapus.', { variant: 'success' });
       await doGet();
     } else {
@@ -99,7 +98,7 @@ const CctvPagePage: NextPage = () => {
       }
     }
 
-    setState({ loading: false });
+    setState({ openConfirmModal: false, loading: false });
   }
 
   useEffect(() => {

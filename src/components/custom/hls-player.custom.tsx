@@ -34,7 +34,10 @@ export default function HlsPlayer({
         manifestLoadingTimeOut: 20000,
         fragLoadingTimeOut: 20000,
         enableWorker: true,
-        maxBufferLength: 10, // biar rendah latency
+        liveMaxLatencyDurationCount: 10,
+        maxBufferLength: 30,
+        maxBufferSize: 60 * 1000 * 1000, // 60MB
+        lowLatencyMode: true,
       });
       hls.loadSource(src);
       hls.attachMedia(video);
