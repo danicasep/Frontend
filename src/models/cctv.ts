@@ -8,6 +8,7 @@ export interface Cctv {
   category?: CctvCategory;
   latitude?: string;
   longitude?: string;
+  isActive?: string;
   createdAt?: string;
   updatedAt?: string;
 }

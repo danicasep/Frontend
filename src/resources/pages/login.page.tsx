@@ -36,12 +36,12 @@ const LoginPage: NextPage = () => {
 
     if(response.record) {
       const data = {
-        data: response.record?.data?.user,
-        token: response.record?.data?.token
+        data: response.record?.user,
+        token: response.record?.token
       }
       
       auth.set(data, state?.isForever)
-      router.push("/account");
+      router.push("/");
       return;
     }
     

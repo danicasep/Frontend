@@ -29,12 +29,15 @@ const CctvListPage: NextPage = () => {
   const doGet = async () => {
     const categoryId = router.query.category_id?.toString() || "";
 
+    setState({loading: true});
     const cctvs = await getCctvs(categoryId);
     if (cctvs.record) {
       setState({ cctvs: cctvs.record });
     } else {
       enqueueSnackbar(cctvs.error?.message || "Gagal mendapatkan data cctv", { variant: "error" });
     }
+
+    setState({loading: false});
   }
 
   useEffect(() => {

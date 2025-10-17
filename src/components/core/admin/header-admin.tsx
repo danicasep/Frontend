@@ -11,7 +11,6 @@ import { useCustomState } from '@/core/helper/state.helper';
 import { NotificationAdmin } from './notification-admin';
 import { HeaderProgress } from '../header-progress';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
-import { CustomLoading } from '@/components/custom/loading.custom';
 import { Auth } from '@/core/auth';
 import { preventRedirect, setLink, useCustomRouter } from '@/core/helper/general';
 import { isView } from '@/config/view';
@@ -99,7 +98,6 @@ export const HeaderAdmin = (props: {
   // const AppBarCustom = styled<AppBarProps>();
 
   return <>
-    <CustomLoading loading={state?.loading} />
     <Box sx={{ flexGrow: 1, backgroundColor:'transparent' }} >
       <HeaderProgress />
       <AppBar position="fixed"

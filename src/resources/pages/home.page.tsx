@@ -28,11 +28,13 @@ const HomePage: NextPage = () => {
 
   const doGet = async () => {
     const response = await getCategories();
+    setState({loading: true})
     if(response.record) {
       setState({categories: response.record});
     } else {
       enqueueSnackbar(response.error?.message ?? "Failed to load data", { variant: "error" });
     }
+    setState({loading: false})
   }
 
   useEffect(() => {

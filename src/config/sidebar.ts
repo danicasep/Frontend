@@ -1,15 +1,10 @@
 import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
-import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
-import AddBusinessTwoToneIcon from '@mui/icons-material/AddBusinessTwoTone';
-import LocalLaundryServiceTwoToneIcon from '@mui/icons-material/LocalLaundryServiceTwoTone';
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import AccountBalanceWalletTwoToneIcon from '@mui/icons-material/AccountBalanceWalletTwoTone';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import {  } from './routing';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import { RouteAdminCctv, RouteAdminCctvCategory, RouteLogin } from './routing';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { Auth } from '@/core/auth';
-import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import DvrIcon from '@mui/icons-material/Dvr';
+import { PeopleOutline } from '@mui/icons-material';
 
 export const SideBar = () => {
 
@@ -22,23 +17,23 @@ export const SideBar = () => {
     child: []
   }
 
-  // const OutletPage = {
-  //   icon: StorefrontTwoToneIcon,
-  //   label: "Outlet",
-  //   link: null,
-  //   child: [
-  //     {
-  //       icon: AddBusinessTwoToneIcon,
-  //       label: "Daftar Outlet",
-  //       link: RouteOutlet()
-  //     },
-  //     {
-  //       icon: LocalLaundryServiceTwoToneIcon,
-  //       label: "Daftar Mesin",
-  //       link: RouteMachine()
-  //     }
-  //   ]
-  // };
+  const CctvPage = {
+    icon: OndemandVideoIcon,
+    label: "CCTV",
+    link: null,
+    child: [
+      {
+        icon: DvrIcon,
+        label: "Daftar Kategori CCTV",
+        link: RouteAdminCctvCategory()
+      },
+      {
+        icon: LiveTvIcon,
+        label: "Daftar CCTV",
+        link: RouteAdminCctv()
+      }
+    ]
+  };
 
   // const TransactionPage = {
   //   icon: AssignmentTwoToneIcon,
@@ -68,23 +63,23 @@ export const SideBar = () => {
   //   child: []
   // }
 
-  // const MerchantManagement = {
-  //   icon: AccountBalanceWalletIcon,
-  //   label: "Merchant Management",
-  //   link: RouteMerchantManagement(),
-  //   child: []
-  // }
+  const Login = {
+    icon: PeopleOutline,
+    label: "Login",
+    link: RouteLogin(),
+    child: []
+  }
 
   return [
     HomePage,
-    null,
+    auth?.data ? null : Login,
     // OutletPage,
     // TransactionPage,
     // PointPage,
     // UserManagement,
     // ActivityLogPage
 
-    // auth?.data?.level == "superadmin" ? UserManagement : null,
+    auth?.data ? CctvPage : null,
     // auth?.data?.level == "superadmin" ? MerchantManagement : null,
     // auth?.data?.level == "superadmin" ? ActivityLogPage : null
   ]

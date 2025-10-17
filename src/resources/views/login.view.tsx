@@ -12,7 +12,7 @@ const LoginView: NextPage<ILoginView> = ({
   return (
     <>
       <MetaTag
-        title="Smart Laundry Tech  - Login"
+        title="BPTD CCTV - Login"
       />
       <Container
         component="main"
@@ -47,10 +47,10 @@ const LoginView: NextPage<ILoginView> = ({
           />
           <Box>
             <Typography sx={{ fontSize: 20, fontWeight: 'bold', color: 'rgb(0, 119, 255)', fontFamily: 'Montserrat' }}>
-              SMART LAUNDRY TECH
+              BPTD CCTV
             </Typography>
             <Typography sx={{ fontSize: 14, color: 'rgb(255, 255, 255)', mt: -0.6, fontFamily: 'Montserrat' }}>
-              Best your laundry service
+              Login Page
             </Typography>
           </Box>
         </Box>

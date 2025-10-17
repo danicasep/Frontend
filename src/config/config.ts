@@ -35,11 +35,11 @@ export const MIDDLEWARE_CONFIG = () => {
   const except: IMiddlewareExcept[] = [
     {
       routes: [
-        "/",
+        // "/",
         "/forgot",
         "/logout"
       ],
-      redirectAuthenticed: "/account",
+      redirectAuthenticed: "/",
     }
   ];
   

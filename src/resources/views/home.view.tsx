@@ -5,6 +5,7 @@ import { MetaTag } from "@/components/core/metatag";
 import { Breadcrumbs, Card, CardContent, Link } from "@mui/material";
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { RouteCctvList } from "@/config/routing";
+import CustomLoading from "@/components/custom/loading.custom";
 const HomeView: NextPage<IHomeView> = ({
   doSave, setState, state, refs, router
 }) => {
@@ -19,6 +20,7 @@ const HomeView: NextPage<IHomeView> = ({
         <Link underline="hover" color="inherit" href="/">Home</Link>
       </Breadcrumbs>
       <Card variant="outlined">
+        <CustomLoading isLoading={state?.loading} variant="dots"/>
         <CardContent>
           {state?.categories.map((category) => (
             <Card

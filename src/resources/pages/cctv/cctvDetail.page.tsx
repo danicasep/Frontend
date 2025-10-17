@@ -6,6 +6,7 @@ import { useEffect, useRef, FormEvent } from "react";
 import { ICctvDetailState } from "@/resources/interfaces/cctv//cctvDetail.interface";
 import CctvDetailView from "@/resources/views/cctv//cctvDetail.view";
 import { MIDDLEWARE_CONFIG } from "@/config/config";
+import { getCctv } from "@/api/api.get";
 
 const CctvDetailPage: NextPage = () => {
 
@@ -34,6 +35,15 @@ const CctvDetailPage: NextPage = () => {
     // example for rtsp to hls
     //
     setState({ srcRtsp: `${MIDDLEWARE_CONFIG().CCTV_URI}/hls/cam_${id}/index.m3u8` });
+    setState({ loading: true });
+    const cctvs = await getCctv(id);
+    if (cctvs.record) {
+      setState({ cctv: cctvs.record });
+    } else {
+      enqueueSnackbar(cctvs.error?.message || "Gagal mendapatkan data cctv", { variant: "error" });
+    }
+
+    setState({ loading: false });
   }
 
   useEffect(() => {

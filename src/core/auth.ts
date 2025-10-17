@@ -2,6 +2,11 @@ import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 import { NextRequest } from 'next/server';
 import { MIDDLEWARE_CONFIG } from "@/config/config";
 
+interface IAuth {
+  data?: any;
+  token?: string;
+}
+
 export const Auth = (guard?: string, request?: NextRequest) => {
 
   const config = MIDDLEWARE_CONFIG();
@@ -79,7 +84,7 @@ export const Auth = (guard?: string, request?: NextRequest) => {
     }
   }
 
-  const get = (): any => {
+  const get = (): IAuth => {
     try {
       return JSON.parse(request ? request.cookies.get(guardName).value : getCookie(guardName).toString());
     } catch (_) {
