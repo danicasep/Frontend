@@ -29,15 +29,13 @@ export default function HlsPlayer({
     } else if (Hls.isSupported()) {
       // Browser lain pakai hls.js
       const hls = new Hls({
-        liveSyncDuration: 3,
-        liveMaxLatencyDuration: 5,
+        lowLatencyMode: true,
+        liveSyncDuration: 3,       // target 3 detik di belakang live edge
+        liveMaxLatencyDuration: 10, // maksimal 10 detik delay
+        maxBufferLength: 30,
         manifestLoadingTimeOut: 20000,
         fragLoadingTimeOut: 20000,
         enableWorker: true,
-        liveMaxLatencyDurationCount: 10,
-        maxBufferLength: 30,
-        maxBufferSize: 60 * 1000 * 1000, // 60MB
-        lowLatencyMode: true,
       });
       hls.loadSource(src);
       hls.attachMedia(video);
