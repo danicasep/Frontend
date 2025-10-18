@@ -5,16 +5,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AccountCircle, Close, DarkMode, LightMode, Logout } from '@mui/icons-material';
-import { colors, Divider, ListItemIcon, ListItemText, Menu, MenuItem, Stack, styled, useTheme } from '@mui/material';
+import { AccountCircle, Close, Logout, PeopleOutline } from '@mui/icons-material';
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, Stack, useTheme } from '@mui/material';
 import { useCustomState } from '@/core/helper/state.helper';
-import { NotificationAdmin } from './notification-admin';
 import { HeaderProgress } from '../header-progress';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { Auth } from '@/core/auth';
 import { preventRedirect, setLink, useCustomRouter } from '@/core/helper/general';
 import { isView } from '@/config/view';
-import { getTheme } from '@/config/theme.config';
 
 export const HeaderAdmin = (props: {
   onClickMenu: () => void,
@@ -78,7 +76,7 @@ export const HeaderAdmin = (props: {
         </Box>
       </Stack>
       <Divider sx={{ marginY: 1 }} />
-      <MenuItem onClick={() => router.push(setLink("/account", { view: "profile" }))} >Profile</MenuItem>
+      {/* <MenuItem onClick={() => router.push(setLink("/account", { view: "profile" }))} >Profile</MenuItem> */}
       {auth?.data?.level == "superadmin" ? <>
         <MenuItem component="a" href="/account/setting" onClick={(evt) => {
           setState({ menuAccount: false })
@@ -139,41 +137,37 @@ export const HeaderAdmin = (props: {
               {props?.titleHeader}
             </Typography>
           </Box>
-          {auth?.data ? <>
-            <Box sx={{ display: 'flex' }}>
-              <Box
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'flex-end'}
-                justifyContent={'center'}>
-                <Typography
-                  display={isMobileView ? 'none' : 'block'}
-                  style={{ fontSize: 14, fontWeight: 'bold', marginBottom: -2, fontFamily: 'Montserrat' }}
-                  color={theme.palette.mode === 'dark' ? 'white' : 'rgb(0, 53, 97)'}>
-                  {auth?.data?.name}
-                </Typography>
-                <Typography
-                  display={isMobileView ? 'none' : 'block'}
-                  style={{ fontSize: 12, color: '#999999', fontFamily: 'Montserrat' }}>
-                  {auth?.data?.level}
-                </Typography>
-              </Box>
+          <Box sx={{ display: 'flex' }}>
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              alignItems={'flex-end'}
+              justifyContent={'center'}>
+              <Typography
+                display={isMobileView ? 'none' : 'block'}
+                style={{ fontSize: 14, fontWeight: 'bold', marginBottom: -2, fontFamily: 'Montserrat' }}
+                color={theme.palette.mode === 'dark' ? 'white' : 'rgb(0, 53, 97)'}>
+                {auth?.data?.name}
+              </Typography>
+              <Typography
+                display={isMobileView ? 'none' : 'block'}
+                style={{ fontSize: 12, color: '#999999', fontFamily: 'Montserrat' }}>
+                {auth?.data?.level}
+              </Typography>
+            </Box>
+            {auth?.data ? (
               <IconButton onClick={(evt) => {
                 setState({
                   menuAccount: true,
                   menuAccountAnchor: evt.currentTarget
                 });
               }}>
-                <img
-                  src={auth?.data?.photo}
-                  alt=""
-                  style={{ height: 40, borderRadius: 5, marginLeft: 5 }} />
-
+                <AccountCircle sx={{ fontSize: 30, color: theme.palette.mode === 'dark' ? 'white' : 'rgb(0, 53, 97)' }} />
               </IconButton>
-              {/* <NotificationAdmin /> */}
-            </Box>
-          </> : null}
-          {menuAccount()}
+            ) : null}
+            {/* <NotificationAdmin /> */}
+          </Box>
+          {auth?.data ? menuAccount() : null}
         </Toolbar>
       </AppBar>
     </Box>

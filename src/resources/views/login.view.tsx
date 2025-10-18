@@ -42,17 +42,17 @@ const LoginView: NextPage<ILoginView> = ({
         >
           <img
             alt=""
-            src="/images/logo.png"
-            style={{ height: 40, width: 40, borderRadius: 10, marginRight: 10, boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.27)' }}
+            src="/base_icon.png"
+            style={{ height: isMobileView ? "auto" : 70, width: isMobileView ? "100%" : "auto", borderRadius: 10, padding: 10, boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.27)' }}
           />
-          <Box>
+          {/* <Box>
             <Typography sx={{ fontSize: 20, fontWeight: 'bold', color: 'rgb(0, 119, 255)', fontFamily: 'Montserrat' }}>
               BPTD CCTV
             </Typography>
             <Typography sx={{ fontSize: 14, color: 'rgb(255, 255, 255)', mt: -0.6, fontFamily: 'Montserrat' }}>
               Login Page
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
 
 
