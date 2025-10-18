@@ -3,6 +3,7 @@ import CategoryCctvPage from "@/resources/pages/cctv/admin/categoryCctv.page";
 import CategoryFormPage from "@/resources/pages/cctv/admin/categoryForm.page";
 import CctvFormPage from "@/resources/pages/cctv/admin/cctvForm.page";
 import CctvPagePage from "@/resources/pages/cctv/admin/cctvPage.page";
+import CctvCategoryPage from "@/resources/pages/cctv/cctvCategory.page";
 import CctvDetailPage from "@/resources/pages/cctv/cctvDetail.page";
 import CctvListPage from "@/resources/pages/cctv/cctvList.page";
 import HomePage from "@/resources/pages/home.page";
@@ -15,6 +16,16 @@ export default function page() {
       removeWhenInactive={true}
       removeWhenQueryNotMatches={true}
       onUpdate={(isActive) => <HomePage />}
+    />
+    <RouterPage
+      pathName="/"
+      removeWhenInactive={true}
+      removeWhenQueryNotMatches={true}
+      where={{
+        unit_id: "{any}",
+        view: "cctv-unit"
+      }}
+      onUpdate={(isActive) => <CctvCategoryPage />}
     />
     <RouterPage
       pathName="/"

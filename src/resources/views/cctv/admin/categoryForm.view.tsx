@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { ICategoryFormView } from "@/resources/interfaces/cctv/admin//categoryForm.interface";
 import { ContainerAdmin } from "@/components/core/admin/container-admin";
 import { MetaTag } from "@/components/core/metatag";
-import { Box, Breadcrumbs, Button, Card, CardContent, Link, TextField } from "@mui/material";
+import { Box, Breadcrumbs, Button, Card, CardContent, FormControl, FormHelperText, InputLabel, Link, MenuItem, Select, TextField } from "@mui/material";
 import { RouteAdminCctvCategory } from "@/config/routing";
 import { preventRedirect } from "@/core/helper/general";
 import { CustomButton } from "@/components/custom/button.custom";
@@ -14,7 +14,7 @@ const CategoryFormView: NextPage<ICategoryFormView> = ({
   const isMobile = isView("mobile");
 
   const updateValue = (name: string, value: string) => {
-    setState({ 
+    setState({
       formInput: { ...state.formInput, [name]: value },
       formError: { ...state.formError, [name]: null }
     })
@@ -35,7 +35,7 @@ const CategoryFormView: NextPage<ICategoryFormView> = ({
         <CardContent>
           <h1>Form Kategori CCTV</h1>
           <Box component="form" onSubmit={doSave} noValidate autoComplete="off" sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2, maxWidth: isMobile ? '100%' : '400px' }}>
-            <TextField 
+            <TextField
               disabled={state?.loading}
               id="filled-basic"
               label="Nama Kategori"
@@ -45,6 +45,25 @@ const CategoryFormView: NextPage<ICategoryFormView> = ({
               error={state?.formError?.name ? true : false}
               helperText={state?.formError?.name}
             />
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Satuan  Pelayanan</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                error={state?.formError?.serviceUnitId ? true : false}
+                value={state?.formInput?.serviceUnitId || ''}
+                label="Satuan  Pelayanan"
+                onChange={(e) => {
+                  updateValue('serviceUnitId', e.target.value);
+                }}
+              >
+                {state?.units?.map((unit) => (
+                  <MenuItem key={unit.id} value={unit.id}>{unit.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormHelperText error={state?.formError?.serviceUnitId ? true : false}>{state?.formError?.serviceUnitId}</FormHelperText>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <CustomButton
                 variant="contained"

@@ -7,6 +7,7 @@ import { ICctvDetailState } from "@/resources/interfaces/cctv//cctvDetail.interf
 import CctvDetailView from "@/resources/views/cctv//cctvDetail.view";
 import { MIDDLEWARE_CONFIG } from "@/config/config";
 import { getCctv } from "@/api/api.get";
+import { Cctv } from "@/models/cctv";
 
 const CctvDetailPage: NextPage = () => {
 
@@ -36,11 +37,13 @@ const CctvDetailPage: NextPage = () => {
     //
     setState({ srcRtsp: `${MIDDLEWARE_CONFIG().CCTV_URI}/hls/cam_${id}/index.m3u8` });
     setState({ loading: true });
-    const cctvs = await getCctv(id);
-    if (cctvs.record) {
-      setState({ cctv: cctvs.record });
+    const cctv = await getCctv(id);
+    if (cctv.record) {
+      
+        if(!state?.unitId) setState({ unitId: cctv.record?.category?.serviceUnitId?.toString() || "" });
+      setState({ cctv: cctv.record });
     } else {
-      enqueueSnackbar(cctvs.error?.message || "Gagal mendapatkan data cctv", { variant: "error" });
+      enqueueSnackbar(cctv.error?.message || "Gagal mendapatkan data cctv", { variant: "error" });
     }
 
     setState({ loading: false });

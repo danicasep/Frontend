@@ -74,12 +74,9 @@ export const NavbarAdmin = (props: {
     // onClose={props.onClose}
     >
       {/* Header */}
-      <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} paddingInline={4} paddingBlock={2.5} mb={2} >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexDirection: 'row' }}>
-          <img alt="" src="/images/logo.png" style={{ height: 30, borderRadius: 5 }} />
-          <Typography sx={{ fontSize: 14, fontWeight: 'bold', color: '#fff', fontFamily: 'Montserrat' }}>
-            CCTV
-          </Typography>
+      <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} paddingInline={2} paddingBlock={2.5} mb={2} sx={{backgroundColor: "rgba(255, 255, 255, .9)"}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
+          <img alt="" src="/base_icon.png" style={{ height: 35 }} />
         </Box>
 
         <IconButton onClick={() => {

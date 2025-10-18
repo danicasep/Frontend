@@ -1,10 +1,12 @@
 import { CctvCategory } from "@/models/cctvCategory";
+import { ServiceUnit } from "@/models/serviceUnit";
 import { NextRouter } from "next/router";
 import { Dispatch, FormEvent } from "react";
 
 export interface ICategoryFormState {
   loading?: boolean;
   category?: CctvCategory;
+  units?: ServiceUnit[];
   formInput?: any;
   formError?: any;
 }

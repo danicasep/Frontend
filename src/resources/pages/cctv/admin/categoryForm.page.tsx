@@ -5,7 +5,7 @@ import { useSnackbar } from "notistack";
 import { useEffect, useRef, FormEvent } from "react";
 import { ICategoryFormState } from "@/resources/interfaces/cctv/admin//categoryForm.interface";
 import CategoryFormView from "@/resources/views/cctv/admin//categoryForm.view";
-import { getAdminCategory } from "@/api/api.get";
+import { getAdminCategory, getServiceUnits } from "@/api/api.get";
 import { Auth } from "@/core/auth";
 import { postCategory } from "@/api/api.post";
 import { putCategory } from "@/api/api.put";
@@ -39,14 +39,14 @@ const CategoryFormPage: NextPage = () => {
 
     const response = await (id ? putCategory(id, state.formInput, auth?.token) : postCategory(state.formInput, auth?.token));
 
-    if(response.record) {
+    if (response.record) {
       enqueueSnackbar('Kategori CCTV berhasil disimpan.', { variant: 'success' });
       router.push(RouteAdminCctvCategory());
     } else {
-      if(response.error?.message) {
+      if (response.error?.message) {
         enqueueSnackbar(response.error.message, { variant: 'error' });
       } else {
-        setState({formError: response.error?.errors});
+        setState({ formError: response.error?.errors });
       }
     }
 
@@ -63,6 +63,13 @@ const CategoryFormPage: NextPage = () => {
       setState({ category: response.record, formInput: response.record });
     } else {
       enqueueSnackbar(response.error?.message || 'Gagal mendapatkan data kategori.', { variant: 'error' });
+    }
+
+    const responseUnits = await getServiceUnits(auth?.token);
+    if (responseUnits.record) {
+      setState({ units: responseUnits.record });
+    } else {
+      enqueueSnackbar(responseUnits.error?.message || 'Gagal mendapatkan data unit layanan.', { variant: 'error' });
     }
     setState({ loading: false });
   }

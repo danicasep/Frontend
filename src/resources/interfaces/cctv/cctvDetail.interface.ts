@@ -6,6 +6,7 @@ export interface ICctvDetailState {
   loading?: boolean;
   cctv?: Cctv;
   srcRtsp?: string;
+  unitId?: string;
 }
 
 export interface ICctvDetailView {

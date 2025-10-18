@@ -42,6 +42,7 @@ const CategoryCctvView: NextPage<ICategoryCctvView> = ({
             columns={[
               { id: "no", label: "No" },
               { id: "name", label: "Nama" },
+              { id: "serviceUnit", label: "Satuan Pelayanan" },
               { id: "createdAt", label: "Dibuat Pada" },
               { id: "updatedAt", label: "Diperbarui Pada" },
             ]}
@@ -69,6 +70,7 @@ const CategoryCctvView: NextPage<ICategoryCctvView> = ({
             data={state?.categories?.map((cat, index) => ({
               ...cat,
               no: index + 1,
+              serviceUnit: cat.service_unit?.name || "-",
               createdAt: new Date(cat.createdAt || "").toLocaleString(),
               updatedAt: new Date(cat.updatedAt || "").toLocaleString(),
             })) || []}

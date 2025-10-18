@@ -1,10 +1,12 @@
 import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import { RouteAdminCctv, RouteAdminCctvCategory, RouteLogin } from './routing';
+import { RouteAdminCctv, RouteAdminCctvCategory, RouteCctvCategories, RouteLogin } from './routing';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { Auth } from '@/core/auth';
 import DvrIcon from '@mui/icons-material/Dvr';
 import { PeopleOutline } from '@mui/icons-material';
+import PhotoCameraFrontIcon from '@mui/icons-material/PhotoCameraFront';
+import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 
 export const SideBar = () => {
 
@@ -14,6 +16,37 @@ export const SideBar = () => {
     icon: DashboardTwoToneIcon,
     label: "Dashboard",
     link: "/",
+    child: []
+  }
+
+  const ListCctv = {
+    icon: DvrIcon,
+    label: "CCTV SatPel",
+    link: null,
+    child: [
+      {
+        icon: PhotoCameraFrontIcon,
+        label: "Terminal",
+        link: RouteCctvCategories(1)
+      },
+      {
+        icon: PhotoCameraFrontIcon,
+        label: "UPPBK",
+        link: RouteCctvCategories(2)
+      },
+      {
+        icon: PhotoCameraFrontIcon,
+        label: "Pelabuhan",
+        link: RouteCctvCategories(3)
+      }
+    ]
+  }
+
+  const BusPage = {
+    icon: DirectionsBusFilledIcon,
+    label: "Jadwal Bus",
+    link: "https://databasebptdjabar.my.canva.site/jadwal-keberangkatan",
+    newTab: true,
     child: []
   }
 
@@ -72,6 +105,8 @@ export const SideBar = () => {
 
   return [
     HomePage,
+    ListCctv,
+    BusPage,
     auth?.data ? null : Login,
     // OutletPage,
     // TransactionPage,

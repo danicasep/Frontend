@@ -6,6 +6,7 @@ import { useEffect, useRef, FormEvent } from "react";
 import { ICctvListState } from "@/resources/interfaces/cctv//cctvList.interface";
 import CctvListView from "@/resources/views/cctv//cctvList.view";
 import { getCctvs } from "@/api/api.get";
+import { Cctv } from "@/models/cctv";
 
 const CctvListPage: NextPage = () => {
 
@@ -32,6 +33,9 @@ const CctvListPage: NextPage = () => {
     setState({loading: true});
     const cctvs = await getCctvs(categoryId);
     if (cctvs.record) {
+      cctvs?.record?.map((cctv: Cctv) => {
+        if(!state?.unitId) setState({ unitId: cctv?.category?.serviceUnitId?.toString() || "" });
+      });
       setState({ cctvs: cctvs.record });
     } else {
       enqueueSnackbar(cctvs.error?.message || "Gagal mendapatkan data cctv", { variant: "error" });

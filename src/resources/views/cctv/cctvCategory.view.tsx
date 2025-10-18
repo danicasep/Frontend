@@ -1,48 +1,47 @@
 import { NextPage } from "next";
-import { ICctvListView } from "@/resources/interfaces/cctv//cctvList.interface";
+import { ICctvCategoryView } from "@/resources/interfaces/cctv//cctvCategory.interface";
 import { ContainerAdmin } from "@/components/core/admin/container-admin";
 import { MetaTag } from "@/components/core/metatag";
 import { Breadcrumbs, Card, CardContent, Link } from "@mui/material";
-import { RouteCctvCategories, RouteCctvDetail } from "@/config/routing";
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import { RouteCctvList } from "@/config/routing";
 import CustomLoading from "@/components/custom/loading.custom";
-import { preventRedirect } from "@/core/helper/general";
 import { isView } from "@/config/view";
 
-const CctvListView: NextPage<ICctvListView> = ({
+const CctvCategoryView: NextPage<ICctvCategoryView> = ({
   doSave, setState, state, refs, router
 }) => {
   const isMobile = isView("mobile");
   return <>
     <ContainerAdmin
-      headerTitle="CCTV List"
+      headerTitle="Header CCTV"
     >
       <MetaTag
-        title="CCTV - Cctv List"
+        title="CCTV - Cctv Category"
       />
       <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" onClick={(e) => preventRedirect(e, router)} href={RouteCctvCategories(state?.unitId)}>CCTV Kategori</Link>
-        <Link underline="hover" color="inherit" onClick={(e) => preventRedirect(e, router)} href="#">Daftar CCTV</Link>
+        <Link underline="hover" color="inherit" href="#">CCTV Kategori</Link>
       </Breadcrumbs>
       <Card variant="outlined">
         <CardContent>
-          <CustomLoading isLoading={state?.loading} variant="dots" />
-          {state?.cctvs.map((cctv) => (
+          {state?.categories.map((category) => (
             <Card
-              key={cctv.id + cctv.name}
+              key={category.id + category.name}
               variant="outlined"
               sx={{ mb: 2, cursor: 'pointer', display: 'inline-block', mr: 2, p: 2, width: isMobile ? "100%" : "auto",  }}
-              onClick={() => router.push(RouteCctvDetail(cctv.id?.toString(), cctv.cctvCategoryId?.toString()))}
+              onClick={() => router.push(RouteCctvList(category.id?.toString()))}
             >
               <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 1, alignContent: 'center', flexDirection: "column" }}>
-                <img src={"/cctv-seeklogo.png"} alt={cctv.name} style={{ width: '100px', height: 'auto' }} />
-                {cctv.name}
+                <OndemandVideoIcon sx={{ fontSize: 40 }} />
+                {category.name}
               </CardContent>
             </Card>
           ))}
+          <CustomLoading isLoading={state?.loading} variant="dots" />
         </CardContent>
       </Card>
     </ContainerAdmin>
   </>
 };
 
-export default CctvListView;
+export default CctvCategoryView;
