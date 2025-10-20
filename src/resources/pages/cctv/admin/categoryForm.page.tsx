@@ -54,6 +54,15 @@ const CategoryFormPage: NextPage = () => {
   }
 
   const doGet = async () => {
+
+    setState({ loading: true });
+    const responseUnits = await getServiceUnits(auth?.token);
+    if (responseUnits.record) {
+      setState({ units: responseUnits.record });
+    } else {
+      enqueueSnackbar(responseUnits.error?.message || 'Gagal mendapatkan data unit layanan.', { variant: 'error' });
+    }
+    setState({ loading: false });
     const id = router.query.id as string;
     if (!id) return;
     // your action
@@ -63,13 +72,6 @@ const CategoryFormPage: NextPage = () => {
       setState({ category: response.record, formInput: response.record });
     } else {
       enqueueSnackbar(response.error?.message || 'Gagal mendapatkan data kategori.', { variant: 'error' });
-    }
-
-    const responseUnits = await getServiceUnits(auth?.token);
-    if (responseUnits.record) {
-      setState({ units: responseUnits.record });
-    } else {
-      enqueueSnackbar(responseUnits.error?.message || 'Gagal mendapatkan data unit layanan.', { variant: 'error' });
     }
     setState({ loading: false });
   }
