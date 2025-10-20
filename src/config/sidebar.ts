@@ -45,6 +45,7 @@ export const SideBar = () => {
   const BusPage = {
     icon: DirectionsBusFilledIcon,
     label: "Jadwal Bus",
+    isNewTab: true,
     link: "https://databasebptdjabar.my.canva.site/jadwal-keberangkatan",
     newTab: true,
     child: []

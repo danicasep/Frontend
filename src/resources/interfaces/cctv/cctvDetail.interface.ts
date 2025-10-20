@@ -7,6 +7,8 @@ export interface ICctvDetailState {
   cctv?: Cctv;
   srcRtsp?: string;
   unitId?: string;
+  previousId?: string;
+  nextId?: string;
 }
 
 export interface ICctvDetailView {

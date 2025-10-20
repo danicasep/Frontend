@@ -1,4 +1,5 @@
 import { Cctv } from "@/models/cctv";
+import { CctvCategory } from "@/models/cctvCategory";
 import { NextRouter } from "next/router";
 import { Dispatch, FormEvent } from "react";
 
@@ -12,6 +13,10 @@ export interface ICctvPageState {
   totalCctvs?: number;
   page?: number;
   perPage?: number;
+  categories?: CctvCategory[];
+  search?: string;
+  selectedCategoryFilter?: string;
+  isPaginate?: boolean;
 }
 
 export interface ICctvPageView {
@@ -25,6 +30,6 @@ export interface ICctvPageView {
   doSave: (evt: FormEvent) => Promise<void>;
   doUpdateStatus: (id: any) => Promise<void>;
   doRestartCctvs: () => Promise<void>;
-  doGet: () => Promise<void>;
+  doGet: (evt?: FormEvent) => Promise<void>;
   doDelete: (id: any) => Promise<void>;
 }

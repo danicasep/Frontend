@@ -6,7 +6,7 @@ import { useEffect, useRef, FormEvent } from "react";
 import { ICctvDetailState } from "@/resources/interfaces/cctv//cctvDetail.interface";
 import CctvDetailView from "@/resources/views/cctv//cctvDetail.view";
 import { MIDDLEWARE_CONFIG } from "@/config/config";
-import { getCctv } from "@/api/api.get";
+import { getCctv, getCctvPagination } from "@/api/api.get";
 import { Cctv } from "@/models/cctv";
 
 const CctvDetailPage: NextPage = () => {
@@ -44,6 +44,13 @@ const CctvDetailPage: NextPage = () => {
       setState({ cctv: cctv.record });
     } else {
       enqueueSnackbar(cctv.error?.message || "Gagal mendapatkan data cctv", { variant: "error" });
+    }
+
+    const paginate = await getCctvPagination(id);
+    if(paginate.record){
+      setState({ previousId: paginate.record?.previousId, nextId: paginate.record?.nextId });
+    } else {
+      enqueueSnackbar(paginate.error?.message || "Gagal mendapatkan data pagination cctv", { variant: "error" });
     }
 
     setState({ loading: false });

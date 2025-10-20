@@ -97,7 +97,12 @@ export const NavbarAdmin = (props: {
                   });
                 } else {
                   props.onClose();
-                  preventRedirect(evt, router)
+
+                  if (sideBar?.isNewTab) {
+                    evt.preventDefault();
+                    window.open(sideBar?.link, "_blank");
+                  }
+                  else preventRedirect(evt, router)
                 }
               }}>
                 <ListItemIcon sx={{ mr: -2 }}>

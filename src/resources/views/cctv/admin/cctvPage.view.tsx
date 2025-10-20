@@ -2,11 +2,12 @@ import { NextPage } from "next";
 import { ICctvPageView } from "@/resources/interfaces/cctv/admin//cctvPage.interface";
 import { ContainerAdmin } from "@/components/core/admin/container-admin";
 import { MetaTag } from "@/components/core/metatag";
-import { Box, Breadcrumbs, Button, Card, CardContent, Chip, Link } from "@mui/material";
+import { Box, Breadcrumbs, Button, Card, CardActions, CardContent, Chip, Link, MenuItem, Select, TextField } from "@mui/material";
 import {
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Add
+  Add,
+  Search
 } from '@mui/icons-material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CustomTable from "@/components/custom/table.custom";
@@ -53,6 +54,31 @@ const CctvPageView: NextPage<ICctvPageView> = ({
               Restart Semua CCTV
             </Button>
           </Box>
+          <Card sx={{ mt: 2, mb: 2 }}>
+            <CardContent>
+              <Box component="form" onSubmit={doGet} sx={{ flexDirection: "row", alignContent: "center" }}> {/* Add your form submission handler here */}
+                <TextField label="Nama CCTV" placeholder="Masukkan nama CCTV" size="small" value={state?.search} onChange={(e) => setState({search: e.target.value})} />
+                <Select
+                  size="small"
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={state?.selectedCategoryFilter || ''}
+                  label="Pilih Kategori"
+                  displayEmpty
+                  onChange={(e) => {
+                    setState({ selectedCategoryFilter: e.target.value ?? ""});
+                  }}
+                >
+                  <MenuItem selected value="">Semua Kategori</MenuItem>
+                  {state?.categories?.map((category) => (
+                    <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+                  ))}
+                </Select>
+                {/* ... other form fields */}
+                <Button type="submit" variant="contained" color="secondary" startIcon={<Search />}>Cari</Button>
+              </Box>
+            </CardContent>
+          </Card>
           <CustomTable
             columns={[
               { id: "no", label: "No" },
@@ -96,7 +122,7 @@ const CctvPageView: NextPage<ICctvPageView> = ({
             ]}
             data={state?.cctvs?.map((cctv, index) => ({
               ...cctv,
-              no: index + 1,
+              no: (state?.page - 1) * state?.perPage + index + 1,
               categoryName: cctv.category?.name || '-',
               isActive: <Chip label={cctv.isActive ? 'Aktif' : 'Tidak Aktif'} color={cctv.isActive ? 'success' : 'default'} />,
               createdAt: new Date(cctv.createdAt || "").toLocaleString(),
@@ -110,8 +136,7 @@ const CctvPageView: NextPage<ICctvPageView> = ({
             perPage={state?.perPage}
             total={state?.totalCctvs}
             onChange={(page) => {
-              setState({ page: page });
-              doGet();
+              setState({ page: page, isPaginate: true });
             }}
           />
           <CustomConfirm

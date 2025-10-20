@@ -7,7 +7,7 @@ import { ICctvPageState } from "@/resources/interfaces/cctv/admin//cctvPage.inte
 import CctvPageView from "@/resources/views/cctv/admin//cctvPage.view";
 import { deleteCctv } from "@/api/api.delete";
 import { Auth } from "@/core/auth";
-import { getAdminCctvs, restartAllCctvs } from "@/api/api.get";
+import { getAdminCategories, getAdminCctvs, restartAllCctvs } from "@/api/api.get";
 import { putCctvStatus } from "@/api/api.put";
 
 const CctvPagePage: NextPage = () => {
@@ -19,7 +19,11 @@ const CctvPagePage: NextPage = () => {
     selectedCctv: {},
     totalCctvs: 0,
     page: 1,
-    perPage: 10
+    perPage: 10,
+    categories: [],
+    search: '',
+    selectedCategoryFilter: '',
+    isPaginate: false
   });
 
   const { enqueueSnackbar } = useSnackbar();
@@ -36,9 +40,11 @@ const CctvPagePage: NextPage = () => {
     evt.preventDefault();
   }
 
-  const doGet = async () => {
+  const doGet = async (evt?: FormEvent) => {
+    evt?.preventDefault();
     setState({ loading: true });
-    const response = await getAdminCctvs(auth?.token, { page: state.page, perPage: state.perPage });
+    if(evt) setState({ page: 1 });
+    const response = await getAdminCctvs(auth?.token, { page: evt ? 1 : state.page, perPage: state.perPage, search: state.search, cctvCategoryId: state.selectedCategoryFilter });
 
     if (response.record) {
       setState({ cctvs: response.record.data, totalCctvs: response.record.total });
@@ -47,7 +53,7 @@ const CctvPagePage: NextPage = () => {
         enqueueSnackbar(response.error.message, { variant: 'error' });
       }
     }
-    setState({ loading: false });
+    setState({ loading: false, isPaginate: false });
   }
 
   const doRestartCctvs = async () => {
@@ -56,7 +62,7 @@ const CctvPagePage: NextPage = () => {
     const response = await restartAllCctvs(auth?.token);
     if (response.record) {
       enqueueSnackbar('Semua CCTV berhasil direstart.', { variant: 'success' });
-      setState({  });
+      setState({});
     }
     else {
       if (response.error?.message) {
@@ -101,9 +107,27 @@ const CctvPagePage: NextPage = () => {
     setState({ openConfirmModal: false, loading: false });
   }
 
+  const doOtherGet = async () => {
+    setState({ loading: true });
+    const response = await getAdminCategories(auth?.token);
+    if (response.record) {
+      setState({ categories: response.record });
+    } else {
+      if (response.error?.message) {
+        enqueueSnackbar(response.error.message, { variant: 'error' });
+      }
+    }
+    setState({ loading: false });
+  }
+
   useEffect(() => {
     doGet();
+    doOtherGet();
   }, []);
+
+  useEffect(() => {
+    if (state?.isPaginate == true) doGet();
+  }, [state?.isPaginate == true]);
 
   return <CctvPageView
     router={router}
