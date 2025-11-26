@@ -4,7 +4,8 @@ import { IMiddlewareExcept, IMiddlewareGroup } from "@/core/middleware.interface
 export const MIDDLEWARE_CONFIG = () => {
 
   const PUBLIC_TOKEN = "$2y$12$pzmosxbw.JQ92udPMS7PhuV/hKOE7yT4.DzF5HfZXt06y.d7R2fWm";
-  const CCTV_URI = "http://localhost:3333";
+  // const CCTV_URI = "http://localhost:3333";
+  const CCTV_URI = "http://36.64.206.50:3333";
 
   /**
    * Session menggunakan cookie
