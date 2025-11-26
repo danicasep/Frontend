@@ -7,7 +7,7 @@ import { ICctvPageState } from "@/resources/interfaces/cctv/admin//cctvPage.inte
 import CctvPageView from "@/resources/views/cctv/admin//cctvPage.view";
 import { deleteCctv } from "@/api/api.delete";
 import { Auth } from "@/core/auth";
-import { getAdminCategories, getAdminCctvs, restartAllCctvs } from "@/api/api.get";
+import { getAdminCategories, getAdminCctvs, restartAllCctvs, restartCctv } from "@/api/api.get";
 import { putCctvStatus } from "@/api/api.put";
 
 const CctvPagePage: NextPage = () => {
@@ -90,6 +90,23 @@ const CctvPagePage: NextPage = () => {
     setState({ openConfirmStatusModal: false, loading: false });
   }
 
+  const doRestartCctv = async (id: any) => {
+    setState({ loading: true });
+
+    const response = await restartCctv(id, auth?.token);
+    if (response.record) {
+      enqueueSnackbar('CCTV berhasil direstart.', { variant: 'success' });
+      setState({ cctvs: state?.cctvs?.map(cctv => cctv.id === id ? response.record : cctv) });
+    }
+    else {
+      if (response.error?.message) {
+        enqueueSnackbar(response.error.message, { variant: 'error' });
+      }
+    }
+
+    setState({ openConfirmRestartCctvModal: false, loading: false });
+  }
+
   const doDelete = async (id: any) => {
     setState({ loading: true });
 
@@ -132,6 +149,7 @@ const CctvPagePage: NextPage = () => {
   return <CctvPageView
     router={router}
     doSave={doSave}
+    doRestartCctv={doRestartCctv}
     doRestartCctvs={doRestartCctvs}
     doUpdateStatus={doUpdateStatus}
     doGet={doGet}

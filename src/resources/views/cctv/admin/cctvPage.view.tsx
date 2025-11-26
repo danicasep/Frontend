@@ -7,7 +7,9 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Add,
-  Search
+  Search,
+  Autorenew,
+  Refresh
 } from '@mui/icons-material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CustomTable from "@/components/custom/table.custom";
@@ -17,7 +19,7 @@ import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore
 import { CustomPagination } from "@/components/custom/pagination.custom";
 
 const CctvPageView: NextPage<ICctvPageView> = ({
-  doSave, setState, state, refs, router, doDelete, doGet, doUpdateStatus, doRestartCctvs
+  doSave, setState, state, refs, router, doDelete, doGet, doUpdateStatus, doRestartCctvs, doRestartCctv
 }) => {
   return <>
     <ContainerAdmin
@@ -84,6 +86,7 @@ const CctvPageView: NextPage<ICctvPageView> = ({
               { id: "no", label: "No" },
               { id: "name", label: "Nama" },
               { id: "isActive", label: "Status" },
+              { id: "cctvStatus", label: "Status CCTV" },
               { id: "categoryName", label: "Kategori" },
               { id: "createdAt", label: "Dibuat Pada" },
               { id: "updatedAt", label: "Diperbarui Pada" },
@@ -96,6 +99,17 @@ const CctvPageView: NextPage<ICctvPageView> = ({
                 onClick: (row) => {
                   setState({
                     openConfirmStatusModal: true,
+                    selectedCctv: row
+                  });
+                }
+              },
+              {
+                icon: <Refresh />,
+                label: 'Restart CCTV',
+                color: 'primary',
+                onClick: (row) => {
+                  setState({
+                    openConfirmRestartCctvModal: true,
                     selectedCctv: row
                   });
                 }
@@ -124,7 +138,8 @@ const CctvPageView: NextPage<ICctvPageView> = ({
               ...cctv,
               no: (state?.page - 1) * state?.perPage + index + 1,
               categoryName: cctv.category?.name || '-',
-              isActive: <Chip label={cctv.isActive ? 'Aktif' : 'Tidak Aktif'} color={cctv.isActive ? 'success' : 'default'} />,
+              isActive: <Chip size="small" label={cctv.isActive ? 'Aktif' : 'Tidak Aktif'} color={cctv.isActive ? 'success' : 'default'} />,
+              cctvStatus: <Chip size="small" variant="outlined" label={cctv.cctvStatus ? 'Online' : 'Offline'} color={cctv.cctvStatus ? 'success' : 'error'} />,
               createdAt: new Date(cctv.createdAt || "").toLocaleString(),
               updatedAt: new Date(cctv.updatedAt || "").toLocaleString(),
             })) || []}
@@ -168,6 +183,16 @@ const CctvPageView: NextPage<ICctvPageView> = ({
             title="Hapus CCTV"
             variant="question"
             message={`Apakah anda yakin ingin mengubah status CCTV bernama ${state?.selectedCctv?.name} menjadi ${state?.selectedCctv?.isActive ? 'Tidak Aktif' : 'Aktif'}?`}
+          />
+          <CustomConfirm
+            open={state?.openConfirmRestartCctvModal || false}
+            onClose={() => setState({ openConfirmRestartCctvModal: false })}
+            onConfirm={() => {
+              doRestartCctv(state?.selectedCctv?.id);
+            }}
+            title="Hapus CCTV"
+            variant="question"
+            message={`Apakah anda yakin ingin merestart CCTV bernama ${state?.selectedCctv?.name}?`}
           />
         </CardContent>
       </Card>

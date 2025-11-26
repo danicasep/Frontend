@@ -9,6 +9,7 @@ export interface ICctvPageState {
   openConfirmModal?: boolean;
   openConfirmStatusModal?: boolean;
   openConfirmRestartModal?: boolean;
+  openConfirmRestartCctvModal?: boolean;
   selectedCctv?: Cctv;
   totalCctvs?: number;
   page?: number;
@@ -29,6 +30,7 @@ export interface ICctvPageView {
   setState: Dispatch<ICctvPageState>;
   doSave: (evt: FormEvent) => Promise<void>;
   doUpdateStatus: (id: any) => Promise<void>;
+  doRestartCctv: (id: any) => Promise<void>;
   doRestartCctvs: () => Promise<void>;
   doGet: (evt?: FormEvent) => Promise<void>;
   doDelete: (id: any) => Promise<void>;

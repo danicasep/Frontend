@@ -14,3 +14,4 @@ export const getAdminCctv = async (id: any, token: any) => apiGet(`/v1/user/cctv
 export const getServiceUnits = async (token?: any) => apiGet(`/v1/user/cctv/units`, token, {});
 
 export const restartAllCctvs = async (token: any) => apiGet(`/v1/user/cctv/camera/restart-all`, token, {});
+export const restartCctv = async (id: any, token: any) => apiGet(`/v1/user/cctv/camera/restart/${id}`, token, {});

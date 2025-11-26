@@ -9,6 +9,7 @@ export interface Cctv {
   latitude?: string;
   longitude?: string;
   isActive?: string;
+  cctvStatus?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

@@ -16,7 +16,7 @@ export const SideBar = () => {
     icon: DashboardTwoToneIcon,
     label: "Dashboard",
     link: "/",
-    isNewTab: true,
+    isNewTab: false,
     child: []
   }
 
@@ -24,7 +24,7 @@ export const SideBar = () => {
     icon: DvrIcon,
     label: "CCTV SatPel",
     link: null,
-    isNewTab: true,
+    isNewTab: false,
     child: [
       {
         icon: PhotoCameraFrontIcon,
@@ -57,7 +57,7 @@ export const SideBar = () => {
     icon: OndemandVideoIcon,
     label: "CCTV",
     link: null,
-    isNewTab: true,
+    isNewTab: false,
     child: [
       {
         icon: DvrIcon,
@@ -104,7 +104,7 @@ export const SideBar = () => {
     icon: PeopleOutline,
     label: "Login",
     link: RouteLogin(),
-    isNewTab: true,
+    isNewTab: false,
     child: []
   }
 

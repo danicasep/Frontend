@@ -98,7 +98,7 @@ export const NavbarAdmin = (props: {
                 } else {
                   props.onClose();
 
-                  if (sideBar?.isNewTab) {
+                  if (sideBar?.isNewTab == true) {
                     evt.preventDefault();
                     window.open(sideBar?.link, "_blank");
                   }

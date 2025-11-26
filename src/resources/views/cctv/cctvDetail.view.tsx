@@ -29,7 +29,9 @@ const CctvDetailView: NextPage<ICctvDetailView> = ({
           <h1>Live Camera - {state?.cctv?.category?.service_unit?.name}</h1>
           {state?.srcRtsp ? (
             <Box sx={{ width: '100%', height: 'auto', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
-              <HlsPlayer src={state?.srcRtsp} autoPlay muted />
+              <HlsPlayer src={state?.srcRtsp} autoPlay muted maxRetries={10} retryDelay={5000} onError={(error) => {
+                console.log("Streamr error", error)
+              }} />
             </Box>
           ) : (
             <p>No live stream available</p>
